@@ -8,15 +8,18 @@
 
 import Cocoa
 import SwiftUI
+import Combine
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var popover = NSPopover.init()
+    var popover = NSPopover()
     var statusBar: StatusBarController?
+    
+    var state = State()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the contents
-        let contentView = ContentView()
+        let contentView = ContentView(state: state)
 
         // Set the SwiftUI's ContentView to the Popover's ContentViewController
         popover.contentViewController = MainViewController()
@@ -24,7 +27,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController?.view = NSHostingView(rootView: contentView)
         
         // Create the Status Bar Item with the Popover
-        statusBar = StatusBarController.init(popover)
+        let sbc = StatusBarController(popover, state: state)
+        statusBar = sbc
+        state.statusItem = sbc.statusItem
+        state.reset()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

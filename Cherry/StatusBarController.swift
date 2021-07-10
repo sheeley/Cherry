@@ -10,34 +10,37 @@ import AppKit
 
 class StatusBarController {
     private var statusBar: NSStatusBar
-    private var statusItem: NSStatusItem
+    var statusItem: NSStatusItem
     private var popover: NSPopover
     private var eventMonitor: EventMonitor?
+    let state: State
     
-    init(_ popover: NSPopover)
-    {
+    init(_ popover: NSPopover, state: State) {
         self.popover = popover
-        statusBar = NSStatusBar.init()
-        statusItem = statusBar.statusItem(withLength: 28.0)
+        self.state = state
+        statusBar = NSStatusBar()
+        statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         
         if let statusBarButton = statusItem.button {
-            statusBarButton.image = #imageLiteral(resourceName: "StatusBarIcon")
-            statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
-            statusBarButton.image?.isTemplate = true
-            
             statusBarButton.action = #selector(togglePopover(sender:))
+            statusBarButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
             statusBarButton.target = self
         }
         
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
     }
     
-    @objc func togglePopover(sender: AnyObject) {
-        if(popover.isShown) {
-            hidePopover(sender)
-        }
-        else {
-            showPopover(sender)
+    @objc func togglePopover(sender: NSStatusBarButton) {
+        guard let event = NSApp.currentEvent else { return }
+        
+        if popover.isShown {
+                hidePopover(sender)
+        } else {
+            if event.type == .leftMouseUp {
+                state.toggle()
+            } else {
+                showPopover(sender)
+            }
         }
     }
     
@@ -54,8 +57,9 @@ class StatusBarController {
     }
     
     func mouseEventHandler(_ event: NSEvent?) {
+        guard let event = NSApp.currentEvent else { return }
         if(popover.isShown) {
-            hidePopover(event!)
+            hidePopover(event)
         }
     }
 }
