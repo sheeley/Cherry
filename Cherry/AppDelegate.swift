@@ -9,6 +9,7 @@
 import Cocoa
 import SwiftUI
 import Combine
+import UserNotifications
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,6 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var state = State()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        UNUserNotificationCenter.current().delegate = state
+        UNUserNotificationCenter.current().setNotificationCategories([startNextCategory])
+        
         // Create the SwiftUI view that provides the contents
         let contentView = ContentView(state: state)
 
@@ -37,4 +41,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 }
-

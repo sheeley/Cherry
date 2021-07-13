@@ -21,7 +21,7 @@ struct ContentView: View {
             }
             
             Button("Reset", action: { state.reset() })
-                    .disabled(!state.hasStarted)
+                .disabled(!(state.hasStarted || state.isCooldown))
             
             Spacer()
             
@@ -35,6 +35,9 @@ struct ContentView: View {
         Form {
             Section(header: Text("Settings")) {
                 Picker("Work Time", selection: $state.regularMinutes) {
+                    #if DEBUG
+                    Text("5 seconds").tag(-5)
+                    #endif
                     Text("5").tag(5)
                     Text("10").tag(10)
                     Text("15").tag(15)
