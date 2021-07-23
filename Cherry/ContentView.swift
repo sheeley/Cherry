@@ -17,7 +17,7 @@ struct ContentView: View {
             if state.running {
                 Button("Pause", action: { state.pause() })
             } else {
-                Button("Play", action: { state.play() })
+                Button("Start", action: { state.play() })
             }
             
             Button("Reset", action: { state.reset() })
@@ -26,7 +26,7 @@ struct ContentView: View {
             Spacer()
             
             Button("Quit", action: {
-                    NSApplication.shared.terminate(self)
+                NSApplication.shared.terminate(self)
             })
         }
     }
@@ -35,9 +35,9 @@ struct ContentView: View {
         Form {
             Section(header: Text("Settings")) {
                 Picker("Work Time", selection: $state.regularMinutes) {
-                    #if DEBUG
+#if DEBUG
                     Text("5 seconds").tag(-5)
-                    #endif
+#endif
                     Text("5").tag(5)
                     Text("10").tag(10)
                     Text("15").tag(15)
@@ -49,6 +49,9 @@ struct ContentView: View {
                 }
                 
                 Picker("Break Time", selection: $state.cooldownMinutes) {
+#if DEBUG
+                    Text("5 seconds").tag(-5)
+#endif
                     Text("5").tag(5)
                     Text("10").tag(10)
                     Text("15").tag(15)
@@ -59,9 +62,9 @@ struct ContentView: View {
                     state.reset(timeOnly: true)
                 }
                 
-//                TextField("Running Label", text: $state.runCharacter)
-//                TextField("Cooldown Label", text: $state.cooldownCharacter)
-//                TextField("Pause Label", text: $state.pauseCharacter)
+                //                TextField("Running Label", text: $state.runCharacter)
+                //                TextField("Cooldown Label", text: $state.cooldownCharacter)
+                //                TextField("Pause Label", text: $state.pauseCharacter)
                 
                 Toggle("Automatic start next timer", isOn: $state.doesContinueAutomatically)
             }
