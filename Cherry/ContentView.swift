@@ -14,6 +14,12 @@ struct ContentView: View {
     
     var buttons: some View {
         HStack {
+            Button("Quit", action: {
+                NSApplication.shared.terminate(self)
+            })
+            
+            Spacer()
+            
             if state.running {
                 Button("Pause", action: { state.pause() })
             } else {
@@ -22,12 +28,6 @@ struct ContentView: View {
             
             Button("Reset", action: { state.reset() })
                 .disabled(!(state.hasStarted || state.isCooldown))
-            
-            Spacer()
-            
-            Button("Quit", action: {
-                NSApplication.shared.terminate(self)
-            })
         }
     }
     
@@ -61,12 +61,32 @@ struct ContentView: View {
                 }.onChange(of: state.cooldownMinutes) { _ in
                     state.reset(timeOnly: true)
                 }
+                Picker("Session End Sound", selection: $state.endSound) {
+#if DEBUG
+                    
+#endif
+                    ForEach(endSounds.allCases) { sound in
+                        Text(sound.rawValue).tag(sound)
+                    }
+                }.onChange(of: state.cooldownMinutes) { _ in
+                    state.reset(timeOnly: true)
+                }
                 
                 //                TextField("Running Label", text: $state.runCharacter)
                 //                TextField("Cooldown Label", text: $state.cooldownCharacter)
                 //                TextField("Pause Label", text: $state.pauseCharacter)
                 
-                Toggle("Automatic start next timer", isOn: $state.doesContinueAutomatically)
+                Slider(value: $state.volume, in: 0.0...1.0) {
+                    Text("Volume")
+                }
+                
+//                Slider(value: $state.volume, in: 0.0...1.0) {
+//                    Text("Session end volume")
+//                }
+                
+                Toggle("Automaticaly start next session", isOn: $state.doesContinueAutomatically)
+                
+                
             }
         }
     }

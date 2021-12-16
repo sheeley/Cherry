@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E597D9626F0598C0024DEB5 /* App Icon x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E597D9326F0598C0024DEB5 /* App Icon x2048.png */; };
+		5E597D9726F0598C0024DEB5 /* just the tomato.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E597D9426F0598C0024DEB5 /* just the tomato.png */; };
+		5E597D9826F0598C0024DEB5 /* App Icon Outline x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E597D9526F0598C0024DEB5 /* App Icon Outline x2048.png */; };
+		5E8516CF26D600E500B67828 /* 562863__buzzatsea__coffee-shop-sounds-2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5E8516CE26D6005A00B67828 /* 562863__buzzatsea__coffee-shop-sounds-2.m4a */; };
 		5EF271872699601100E04CC3 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF271862699601100E04CC3 /* State.swift */; };
 		A70B6234237AF87000A2BA73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B6233237AF87000A2BA73 /* AppDelegate.swift */; };
 		A70B6236237AF87000A2BA73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B6235237AF87000A2BA73 /* ContentView.swift */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E597D9326F0598C0024DEB5 /* App Icon x2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon x2048.png"; sourceTree = SOURCE_ROOT; };
+		5E597D9426F0598C0024DEB5 /* just the tomato.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "just the tomato.png"; sourceTree = SOURCE_ROOT; };
+		5E597D9526F0598C0024DEB5 /* App Icon Outline x2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon Outline x2048.png"; sourceTree = SOURCE_ROOT; };
+		5E8516CE26D6005A00B67828 /* 562863__buzzatsea__coffee-shop-sounds-2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "562863__buzzatsea__coffee-shop-sounds-2.m4a"; sourceTree = SOURCE_ROOT; };
 		5EF271862699601100E04CC3 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		A70B6230237AF87000A2BA73 /* Cherry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cherry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A70B6233237AF87000A2BA73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +71,11 @@
 		A70B6232237AF87000A2BA73 /* Cherry */ = {
 			isa = PBXGroup;
 			children = (
+				5E8516CE26D6005A00B67828 /* 562863__buzzatsea__coffee-shop-sounds-2.m4a */,
 				A70B6240237AF87700A2BA73 /* Cherry.entitlements */,
+				5E597D9526F0598C0024DEB5 /* App Icon Outline x2048.png */,
+				5E597D9326F0598C0024DEB5 /* App Icon x2048.png */,
+				5E597D9426F0598C0024DEB5 /* just the tomato.png */,
 				A70B623F237AF87700A2BA73 /* Info.plist */,
 				A70B6233237AF87000A2BA73 /* AppDelegate.swift */,
 				A70B6235237AF87000A2BA73 /* ContentView.swift */,
@@ -113,7 +125,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Golden Chopper";
 				TargetAttributes = {
 					A70B622F237AF87000A2BA73 = {
@@ -144,8 +156,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E597D9826F0598C0024DEB5 /* App Icon Outline x2048.png in Resources */,
 				A70B623E237AF87700A2BA73 /* Main.storyboard in Resources */,
+				5E597D9726F0598C0024DEB5 /* just the tomato.png in Resources */,
 				A70B623B237AF87700A2BA73 /* Preview Assets.xcassets in Resources */,
+				5E8516CF26D600E500B67828 /* 562863__buzzatsea__coffee-shop-sounds-2.m4a in Resources */,
+				5E597D9626F0598C0024DEB5 /* App Icon x2048.png in Resources */,
 				A70B6238237AF87700A2BA73 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +222,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -266,6 +283,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
