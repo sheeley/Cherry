@@ -29,40 +29,54 @@ class State: NSObject, ObservableObject {
     
     // MARK: - Settings
     @Published var doesContinueAutomatically = false
+    @Published var playBackgroundNoise = false
     @Published var volume: Float = 1.0
-    @Published var endSound = endSounds.None
+    @Published var endSound = endSounds.Glass
     
-#if DEBUG
-    @Published var regularMinutes = -5
-    @Published var cooldownMinutes = -2
-#else
-    @Published var regularMinutes = 25
+//#if DEBUG
+//    @Published var regularMinutes = -5
+//    @Published var cooldownMinutes = -2
+//#else
+    @Published var regularMinutes = 15
     @Published var cooldownMinutes = 5
-#endif
+//#endif
     //    @Published var pauseCharacter = "⏸"
     //    @Published var runCharacter = "🏃🏻‍♂️"
     //    @Published var cooldownCharacter = "❄️"
     
-    private var ccl: AnyCancellable? = nil
+    private var ccls = [AnyCancellable]()
     
     override init() {
         super.init()
-        ccl = $volume.sink(receiveValue: { newVolume in
+        
+        ccls.append($volume.sink(receiveValue: { newVolume in
             backgroundNoise.setVolume(newVolume)
-        })
+        }))
+        
+        ccls.append($playBackgroundNoise.sink(receiveValue: { play in
+            if self.running {
+                if !play {
+                    backgroundNoise.stop()
+                } else {
+                    backgroundNoise.play(at: self.volume)
+                }
+            }
+        }))
     }
 }
 
 //let backgroundNoise = Player(url: Bundle.main.url(forResource: "Coffee-shop-background-noise", withExtension: "mp3")!)
 let backgroundNoise = Player(url: Bundle.main.url(forResource: "562863__buzzatsea__coffee-shop-sounds-2", withExtension: "m4a")!)
 
-
 enum endSounds: String {
     case None, Basso, Blow, Bottle, Froge, Funk, Glass, Hero, More, Ping, Purr, Sosumi, Submarine, Tink
     
     func play(at volume: Float) {
         guard self != .None else { return }
-        let endSound = NSSound(named: self.rawValue)!
+        guard let endSound = NSSound(named: self.rawValue) else {
+            print("\(self.rawValue) does not exist!")
+            return
+        }
         endSound.volume = volume
         endSound.play()
     }
@@ -131,9 +145,17 @@ extension State {
     //    }
     
     var image: NSImage? {
+        if let iconPath = Bundle.main.url(forResource: "just the tomato", withExtension: "png") {
+            let img = NSImage(contentsOf: iconPath)
+            img?.accessibilityDescription = "Cherry"
+            img?.size.height = 30
+            img?.size.width = 30
+            
+            return img
+        }
         guard timer != nil else {
             // no timer, paused
-            return NSImage(systemSymbolName: "play.circle", accessibilityDescription: "Pause Cherry")
+            return NSImage(systemSymbolName: "sparkles", accessibilityDescription: "Pause Cherry")
         }
         
         guard isCooldown else {
@@ -185,6 +207,7 @@ extension State {
         setTitle()
         
         guard !isCooldown else { return }
+        guard playBackgroundNoise else { return }
         backgroundNoise.play(at: volume)
     }
     

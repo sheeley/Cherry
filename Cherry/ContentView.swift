@@ -35,9 +35,9 @@ struct ContentView: View {
         Form {
             Section(header: Text("Settings")) {
                 Picker("Work Time", selection: $state.regularMinutes) {
-#if DEBUG
-                    Text("5 seconds").tag(-5)
-#endif
+//#if DEBUG
+//                    Text("5 seconds").tag(-5)
+//#endif
                     Text("5").tag(5)
                     Text("10").tag(10)
                     Text("15").tag(15)
@@ -49,9 +49,9 @@ struct ContentView: View {
                 }
                 
                 Picker("Break Time", selection: $state.cooldownMinutes) {
-#if DEBUG
-                    Text("5 seconds").tag(-5)
-#endif
+//#if DEBUG
+//                    Text("5 seconds").tag(-5)
+//#endif
                     Text("5").tag(5)
                     Text("10").tag(10)
                     Text("15").tag(15)
@@ -61,6 +61,10 @@ struct ContentView: View {
                 }.onChange(of: state.cooldownMinutes) { _ in
                     state.reset(timeOnly: true)
                 }
+                Toggle("Automatically start next session", isOn: $state.doesContinueAutomatically)
+                
+                Divider()
+                Toggle("Play background noise", isOn: $state.playBackgroundNoise)
                 Picker("Session End Sound", selection: $state.endSound) {
 #if DEBUG
                     
@@ -68,8 +72,8 @@ struct ContentView: View {
                     ForEach(endSounds.allCases) { sound in
                         Text(sound.rawValue).tag(sound)
                     }
-                }.onChange(of: state.cooldownMinutes) { _ in
-                    state.reset(timeOnly: true)
+                }.onChange(of: state.endSound) { _ in
+                    state.endSound.play(at: state.volume)
                 }
                 
                 //                TextField("Running Label", text: $state.runCharacter)
@@ -83,8 +87,6 @@ struct ContentView: View {
 //                Slider(value: $state.volume, in: 0.0...1.0) {
 //                    Text("Session end volume")
 //                }
-                
-                Toggle("Automaticaly start next session", isOn: $state.doesContinueAutomatically)
                 
                 
             }
